@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  api:
+    build: ./backend
+    working_dir: /app
+    ports:
+      - 3001:3001
+    command: dev
+    volumes:
+      - ./backend:/app
+    environment:
+      - NODE_ENV=development
+      - PORT=3001
+      - DATABASE_NAME=bank
+      - DATABASE_USER=root
+      - DATABASE_PASSWORD=password
+      - DATABASE_HOST=database
+      - DATABASE_PORT=3306
+      - SECRET_KEY=programming
+    depends_on:
+      - database
+
+  database:
+    image: mysql
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_DATABASE=bank
+      - MYSQL_ROOT_PASSWORD=password
