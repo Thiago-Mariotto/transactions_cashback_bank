@@ -17,4 +17,9 @@ router.post('/:accountId/transactions',
 router.get('/:accountId/transactions',
   authMiddleware,
   (req: Request, res: Response, next: NextFunction) => transactionController.UserTransactions(req, res, next));
+
+router.put('/:accountId',
+  authMiddleware,
+  (req: Request, res: Response, next: NextFunction) => accountController.UpdateAccount(req, res, next));
+
 export default router;

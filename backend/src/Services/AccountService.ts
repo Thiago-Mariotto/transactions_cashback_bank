@@ -3,9 +3,10 @@ import { ModelStatic } from 'sequelize';
 import AccountSequelize from '../Database/models/AccountSequelize';
 import { JuridicalAccount, PersonAccount } from '../Entities';
 import BadRequest from '../Errors/BadRequest';
-import IAccount from '../Interfaces/IAccount';
+import Account from '../Types/Account';
 import JuridicalAccountService from './JuridicalAccountService';
 import PersonalAccountService from './PersonalAccountService';
+import LoggedAccount from '../Types/LoggedAccount';
 
 export default class AccountService {
   private _model: ModelStatic<AccountSequelize>;
@@ -23,12 +24,23 @@ export default class AccountService {
     return account;
   }
 
-  public async Create(account: IAccount): Promise<JuridicalAccount | PersonAccount | Error> {
+  public async Create(account: Account): Promise<JuridicalAccount | PersonAccount | Error> {
     switch (account.accountType) {
       case 1:
         return await new PersonalAccountService(this._model).CreatePersonal(account);
       case 2:
         return await new JuridicalAccountService(this._model).CreateJuridical(account);
+      default:
+        throw new BadRequest('Tipo de conta inválido');
+    }
+  }
+
+  public async Update(updateAccount: Account, loggedAccount: LoggedAccount): Promise<void | Error> {
+    switch (updateAccount.accountType) {
+      case 1:
+        return await new PersonalAccountService(this._model).UpdatePersonal(updateAccount, loggedAccount);
+      case 2:
+        return await new JuridicalAccountService(this._model).UpdateJuridical(updateAccount, loggedAccount);
       default:
         throw new BadRequest('Tipo de conta inválido');
     }
