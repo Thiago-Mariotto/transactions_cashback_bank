@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import ILogin from '../Interfaces/ILogin';
 import LoginService from '../Services/LoginService';
+import ILogin from '../Types/Login';
 import { LoginSchema } from './Schemas/LoginSchema';
 
 export default class LoginController {
