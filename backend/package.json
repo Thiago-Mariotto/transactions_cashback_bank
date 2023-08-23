@@ -1,0 +1,53 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./build/server.js",
+  "scripts": {
+    "db:reset": "npx tsc && npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "build": "tsc --project tsconfig.json",
+    "predev": "npm run db:reset",
+    "dev": "ts-node-dev --watch --transpile-only ./src/server.ts",
+    "prestart": "npm run build && npm run db:reset",
+    "start": "npm run build && node .",
+    "lint": "eslint ./src --ext .ts",
+    "pretest": "env $(cat .env) NODE_ENV=test",
+    "test": "jest tests --runInBand --detectOpenHandles --verbose",
+    "test:unit": "jest tests/unit --detectOpenHandles",
+    "test:integration": "jest  tests/integration --runInBand --detectOpenHandles --verbose"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/crypto-js": "^4.1.1",
+    "@types/jest": "^29.5.3",
+    "@types/supertest": "^2.0.12",
+    "@types/uuid": "^9.0.2",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.44.0",
+    "jest": "^29.6.1",
+    "sequelize-cli": "^6.6.1",
+    "sequelize-mock": "^0.10.2",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.1.1",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "typescript": "^5.1.6",
+    "zod": "^3.22.1"
+  },
+  "dependencies": {
+    "@types/express": "^4.17.17",
+    "@types/jsonwebtoken": "^9.0.2",
+    "@types/mysql": "^2.15.21",
+    "@types/sequelize": "^4.28.15",
+    "crypto-js": "^4.1.1",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.1",
+    "mysql2": "^3.5.1",
+    "sequelize": "^6.32.1",
+    "uuid": "^9.0.0"
+  }
+}
