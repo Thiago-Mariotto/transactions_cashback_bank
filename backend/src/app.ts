@@ -13,7 +13,8 @@ class App {
     this.app = express();
     this.config();
     this.routes();
-    this.app.use((err: HttpError, req: Request, res: Response, next: NextFunction) => errorHandler.execute(err, req, res, next));
+    this.app.use((err: HttpError, req: Request, res: Response, next: NextFunction) =>
+      errorHandler.execute(err, req, res, next));
   }
 
   private routes(): void {

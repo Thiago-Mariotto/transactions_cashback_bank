@@ -1,4 +1,4 @@
-export default class HttpError extends Error {
+export default abstract class HttpError extends Error {
   public statusCode: number;
   public message: string;
   public name: string;

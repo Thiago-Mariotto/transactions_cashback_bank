@@ -4,12 +4,13 @@ import AccountSequelize from '../Database/models/AccountSequelize';
 import { JuridicalAccount, PersonAccount } from '../Entities';
 import BadRequest from '../Errors/BadRequest';
 import Account from '../Types/Account';
+import LoggedAccount from '../Types/LoggedAccount';
 import JuridicalAccountService from './JuridicalAccountService';
 import PersonalAccountService from './PersonalAccountService';
-import LoggedAccount from '../Types/LoggedAccount';
 
 export default class AccountService {
   private _model: ModelStatic<AccountSequelize>;
+
   constructor() {
     this._model = AccountSequelize;
   }

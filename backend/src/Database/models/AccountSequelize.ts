@@ -5,8 +5,10 @@ import {
   InferCreationAttributes,
   Model
 } from 'sequelize';
-import { V4Options } from 'uuid';
+import { V4Options, v4 as uuid } from 'uuid';
 import db from '.';
+
+uuid();
 
 class AccountSequelize extends Model<
   InferAttributes<AccountSequelize>,
@@ -19,58 +21,56 @@ class AccountSequelize extends Model<
   declare password: CreationOptional<string>;
   declare active: CreationOptional<boolean>;
   declare accountType: CreationOptional<number>;
-
-  public static initialize() {
-    this.init({
-      id: {
-        type: DataTypes.UUID,
-        defaultValue: DataTypes.UUIDV4,
-        allowNull: false,
-        primaryKey: true
-      },
-      documentNumber: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      name: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-      },
-      password: {
-        type: DataTypes.STRING,
-        allowNull: false,
-      },
-      active: {
-        type: DataTypes.BOOLEAN,
-        allowNull: false,
-        defaultValue: true,
-      },
-      accountType: {
-        type: DataTypes.UUID,
-        allowNull: false,
-        references: {
-          model: 'account_types',
-          key: 'id',
-        }
-      }
-    }, {
-      sequelize: db,
-      modelName: 'accounts',
-      timestamps: false,
-      underscored: true,
-    });
-
-    // this.hasMany(TransactionSequelize, {
-    //   foreignKey: 'accountId',
-    //   as: 'transactions'
-    // });
-  }
 }
+
+AccountSequelize.init({
+  id: {
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
+    allowNull: false,
+    primaryKey: true
+  },
+  documentNumber: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  email: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  active: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: true,
+  },
+  accountType: {
+    type: DataTypes.UUID,
+    allowNull: false,
+    references: {
+      model: 'account_types',
+      key: 'id',
+    }
+  }
+}, {
+  sequelize: db,
+  modelName: 'accounts',
+  timestamps: false,
+  underscored: true,
+});
+
+// this.hasMany(TransactionSequelize, {
+//   foreignKey: 'accountId',
+//   as: 'transactions'
+// });
 
 export default AccountSequelize;

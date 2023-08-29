@@ -4,7 +4,6 @@ import LoggedAccount from '../Types/LoggedAccount';
 import { AccountSchema } from './Schemas/AccountSchema';
 
 export default class AccountController {
-
   constructor(private _accountService = new AccountService()) { }
 
   public async CreateAccount(req: Request, res: Response, next: NextFunction) {

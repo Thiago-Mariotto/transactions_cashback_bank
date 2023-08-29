@@ -1,12 +1,5 @@
-import { ModelStatic } from 'sequelize';
-import CashbackSequelize from '../Database/models/CashbackSequelize';
-
 export default class CashbackService {
-  private _cashbackModel: ModelStatic<CashbackSequelize>;
-
-  constructor() {
-    this._cashbackModel = CashbackSequelize;
-  }
+  constructor() { }
 
   public calculateCashback(amount: number) {
     let rate = 0;

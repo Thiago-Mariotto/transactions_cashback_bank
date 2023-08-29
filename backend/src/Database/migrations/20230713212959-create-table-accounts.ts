@@ -1,5 +1,5 @@
 import { DataTypes, Model, QueryInterface } from 'sequelize';
-import IAccount from '../../Interfaces/IAccount';
+import IAccount from '../../Types/Account';
 
 export default {
   async up(queryInterface: QueryInterface) {

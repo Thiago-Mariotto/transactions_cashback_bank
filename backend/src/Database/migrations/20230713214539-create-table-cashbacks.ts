@@ -1,5 +1,5 @@
 import { DataTypes, Model, QueryInterface } from 'sequelize';
-import ICashback from '../../Interfaces/ICashback';
+import ICashback from '../../Types/Cashback';
 
 export default {
   async up(queryInterface: QueryInterface) {

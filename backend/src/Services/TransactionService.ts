@@ -1,3 +1,4 @@
+import { ModelStatic } from 'sequelize';
 import db from '../Database/models';
 import AccountSequelize from '../Database/models/AccountSequelize';
 import CashbackSequelize from '../Database/models/CashbackSequelize';
@@ -11,10 +12,10 @@ import AccountService from './AccountService';
 import CashbackService from './CashbackService';
 
 export default class TransactionService {
-  private _transactionModel: typeof TransactionSequelize;
+  private _transactionModel: ModelStatic<TransactionSequelize>;
   private _accountService: AccountService;
   private _cashbackService: CashbackService;
-  private _cashbackModel: typeof CashbackSequelize;
+  private _cashbackModel: ModelStatic<CashbackSequelize>;
 
   constructor() {
     this._transactionModel = TransactionSequelize;
@@ -36,22 +37,22 @@ export default class TransactionService {
   public async create(accountId: string, amount: number, loggedUser: LoggedAccount) {
     const t = await db.transaction();
     try {
-      this._cashbackModel.initialize();
-      this._transactionModel.initialize();
-
       await this.UserExists(accountId);
       await this.ThisUserTransaction(accountId, loggedUser.id);
 
       const newTransaction = new Transaction(accountId, amount);
+
       const transaction = await this._transactionModel.create({
         accountId: newTransaction.accountId,
         amount: newTransaction.value,
         date: new Date(),
       }, { transaction: t });
+
       newTransaction.id = transaction.id;
 
       const cashbackConfig = await this._cashbackService.create(amount);
       const newCashback = new Cashback(accountId, transaction.id, cashbackConfig.rate);
+
       const cashback = await this._cashbackModel.create(
         {
           accountId: newCashback.accountId,
@@ -71,8 +72,8 @@ export default class TransactionService {
         value: newTransaction.value,
         cashback: newCashback.rate
       };
-
       return result;
+
     } catch (err) {
       await t.rollback();
       throw err;
@@ -80,8 +81,6 @@ export default class TransactionService {
   }
 
   public async listByAccount(accountId: string, loggedUser: LoggedAccount) {
-    this._transactionModel.initialize();
-
     await this.UserExists(accountId);
     await this.ThisUserTransaction(accountId, loggedUser.id);
 

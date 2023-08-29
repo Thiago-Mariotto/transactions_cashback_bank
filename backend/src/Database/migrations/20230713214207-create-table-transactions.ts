@@ -1,5 +1,5 @@
 import { DataTypes, Model, QueryInterface } from 'sequelize';
-import ITransaction from '../../Interfaces/ITransaction';
+import ITransaction from '../../Types/Transaction';
 
 export default {
   async up(queryInterface: QueryInterface) {

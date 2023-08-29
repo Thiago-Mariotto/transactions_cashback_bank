@@ -9,7 +9,8 @@ import LoggedAccount from '../Types/LoggedAccount';
 import { decrypt, encrypt } from '../Utils/Crypt';
 
 export default class PersonalAccountService {
-  constructor(private _model: ModelStatic<AccountSequelize>) { }
+
+  constructor(private _model: ModelStatic<AccountSequelize> = AccountSequelize) { }
 
   public async CreatePersonal(account: Account): Promise<PersonAccount | Error> {
 
