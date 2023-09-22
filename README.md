@@ -88,20 +88,3 @@ Para interagir com a API REST, será necessário criar, pelo menos, as seguintes
 - Apresentar a somatória dos valores da cashback, em reais
 
 5. Um menu de navegação a todas as telas, com nome e CPF da pessoa logada.
-
-
-## O que será avaliado
-- Documentação
-- Código limpo e organizado (nomenclatura, etc)
-- Conhecimento de padrões (design patterns, SOLID)
-- Ser consistente e saber argumentar suas decisões de arquitetura e construção de código
-- Tratamento de erros
-- Segurança
-- Cobertura de testes
-
-## Diferencial
-- Uso de Docker
-- Testes de integração
-- Testes unitários
-- Uso de Design Patterns
-- Documentação
